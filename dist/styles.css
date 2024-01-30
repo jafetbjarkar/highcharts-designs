@@ -1,0 +1,7 @@
+.ib {
+  display: inline-block;
+}
+
+.border {
+  border: 1px dashed red;
+}
