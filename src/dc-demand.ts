@@ -22,16 +22,40 @@ document.addEventListener('DOMContentLoaded', () => {
   const data4Aggregated = data4.reduce((acc, curr) => acc + curr, 0);
 
   /**
+   * Column chart
+   */
+
+  // @ts-ignore
+  const colChart = Highcharts.chart('dc-demand-column', {
+    ...highchartsCommonOptions,
+    chart: {
+      type: 'column',
+      stacked: true,
+    },
+    legend: { enabled: false },
+    xAxis: {
+      categories,
+    },
+    series: [
+      { id: 'store1', name: 'Store 1', data: data1, stacking: 'normal' },
+      { id: 'store2', name: 'Store 2', data: data2, stacking: 'normal' },
+      { id: 'store3', name: 'Store 3', data: data3, stacking: 'normal' },
+      { id: 'store4', name: 'Store 4', data: data4, stacking: 'normal' },
+    ],
+    plotOptions: {},
+  });
+
+  /**
    * Pie chart
    */
 
   // @ts-ignore
-  const pieChart = Highcharts.chart('demand-from-other-locations-pie', {
+  const pieChart = Highcharts.chart('dc-demand-pie', {
     ...highchartsCommonOptions,
     chart: {
       type: 'pie',
     },
-    legend: { enabled: false },
+    legend: { enabled: true, layout: 'vertical', align: 'right', verticalAlign: 'top', width: 220 },
     xAxis: {
       categories,
     },
@@ -48,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ],
     plotOptions: {
       pie: {
+        showInLegend: true,
         dataLabels: {
           enabled: true,
           distance: -30,
@@ -60,36 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
           },
         },
       },
-    },
-  });
-
-  /**
-   * Column chart
-   */
-
-  // @ts-ignore
-  Highcharts.chart('demand-from-other-locations-column', {
-    ...highchartsCommonOptions,
-    chart: {
-      type: 'column',
-      stacked: true,
-    },
-    legend: { enabled: true, layout: 'vertical', align: 'right', verticalAlign: 'top' },
-    xAxis: {
-      categories,
-    },
-    series: [
-      { id: 'store1', name: 'Store 1', data: data1, stacking: 'normal' },
-      { id: 'store2', name: 'Store 2', data: data2, stacking: 'normal' },
-      { id: 'store3', name: 'Store 3', data: data3, stacking: 'normal' },
-      { id: 'store4', name: 'Store 4', data: data4, stacking: 'normal' },
-    ],
-    plotOptions: {
       series: {
         events: {
           legendItemClick: function (event) {
             console.log('event: ', event);
-            var XYZ = pieChart;
+            var XYZ = colChart;
             // @ts-ignore
             var series = XYZ.get(this.options.id); //get corresponding series
             console.log(this.options.id);
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
 
   // @ts-ignore
-  Highcharts.chart('demand-from-other-locations-line', {
+  Highcharts.chart('dc-demand-line', {
     ...highchartsCommonOptions,
     chart: {
       type: 'line',
