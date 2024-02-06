@@ -10,20 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
    */
 
   const categories = ['Jan, `24', 'Feb, `24', 'Mar, `24', 'Apr, `24', 'May, `24', 'Jun, `24', 'Jul, `24', 'Aug, `24'];
-  const data1 = [120, 140, 170, 145, 150, 160, 170, 180].map((value) => value * 2);
-  const data2 = [90, 95, 110, 115, 120, 125, 130, 135].map((value) => value * 6);
-  const data3 = [200, 220, 240, 260, 280, 300, 320, 340];
-  const data4 = [150, 160, 170, 180, 190, 200, 210, 220];
-  const data5 = [200, 220, 240, 260, 280, 300, 320, 340];
-  const data6 = [150, 160, 170, 180, 190, 200, 210, 220];
+  const wh1 = [120, 140, 170, 200, 220, 250, 300, 350];
+  const wh2 = [90, 150, 210, 270, 330, 420, 510, 615];
+  const store1 = [50, 70, 90, 110, 130, 150, 180, 200];
+  const store2 = [30, 50, 70, 90, 110, 130, 160, 190];
+  const store3 = [5, 10, 15, 20, 25, 27, 29, 30];
+  const store4 = [2, 3, 4, 5, 5.5, 5.7, 5.9, 6];
 
   // Aggregated for pie
-  const data1Aggregated = data1.reduce((acc, curr) => acc + curr, 0);
-  const data2Aggregated = data2.reduce((acc, curr) => acc + curr, 0);
-  const data3Aggregated = data3.reduce((acc, curr) => acc + curr, 0);
-  const data4Aggregated = data4.reduce((acc, curr) => acc + curr, 0);
-  const data5Aggregated = data5.reduce((acc, curr) => acc + curr, 0);
-  const data6Aggregated = data6.reduce((acc, curr) => acc + curr, 0);
+  const wh1Aggregated = wh1.reduce((acc, curr) => acc + curr, 0);
+  const wh22Aggregated = wh2.reduce((acc, curr) => acc + curr, 0);
+  const store1Aggregated = store1.reduce((acc, curr) => acc + curr, 0);
+  const store2Aggregated = store2.reduce((acc, curr) => acc + curr, 0);
+  const store3Aggregated = store3.reduce((acc, curr) => acc + curr, 0);
+  const store4Aggregated = store4.reduce((acc, curr) => acc + curr, 0);
 
   /**
    * Column chart
@@ -41,12 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
       categories,
     },
     series: [
-      { id: 'wh1', name: 'Warehouse - West US', data: data1, stacking: 'normal' },
-      { id: 'wh2', name: 'Warehouse - East US', data: data2, stacking: 'normal' },
-      { id: 'store1', name: 'Store 1', data: data3, stacking: 'normal' },
-      { id: 'store2', name: 'Store 2', data: data4, stacking: 'normal' },
-      { id: 'store3', name: 'Store 3', data: data5, stacking: 'normal' },
-      { id: 'store4', name: 'Store 4', data: data6, stacking: 'normal' },
+      { id: 'wh1', name: 'Warehouse - West US', data: wh1, stacking: 'normal' },
+      { id: 'wh2', name: 'Warehouse - East US', data: wh2, stacking: 'normal' },
+      { id: 'store1', name: 'Store 1', data: store1, stacking: 'normal' },
+      { id: 'store2', name: 'Store 2', data: store2, stacking: 'normal' },
+      { id: 'store3', name: 'Store 3', data: store3, stacking: 'normal' },
+      { id: 'store4', name: 'Store 4', data: store4, stacking: 'normal' },
     ],
     plotOptions: {},
   });
@@ -69,12 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         name: 'Demand from other locations',
         data: [
-          { id: 'wh1', name: 'Warehouse - West US', y: data1Aggregated },
-          { id: 'wh2', name: 'Warehouse - East US', y: data2Aggregated },
-          { id: 'store1', name: 'Store 1', y: data3Aggregated },
-          { id: 'store2', name: 'Store 2', y: data4Aggregated },
-          { id: 'store3', name: 'Store 3', y: data5Aggregated },
-          { id: 'store4', name: 'Store 4', y: data6Aggregated },
+          { id: 'wh1', name: 'Warehouse - West US', y: wh1Aggregated },
+          { id: 'wh2', name: 'Warehouse - East US', y: wh22Aggregated },
+          { id: 'store1', name: 'Store 1', y: store1Aggregated },
+          { id: 'store2', name: 'Store 2', y: store2Aggregated },
+          { id: 'store3', name: 'Store 3', y: store3Aggregated },
+          { id: 'store4', name: 'Store 4', y: store4Aggregated },
         ],
       },
     ],
