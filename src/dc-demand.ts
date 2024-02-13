@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
 
   // @ts-ignore
-  const pieChart = Highcharts.chart('dc-demand-pie', {
+  Highcharts.chart('dc-demand-pie', {
     ...highchartsCommonOptions,
     chart: {
       type: 'pie',
@@ -72,6 +72,25 @@ document.addEventListener('DOMContentLoaded', () => {
     ],
     plotOptions: {
       pie: {
+        point: {
+          events: {
+            legendItemClick: function (event) {
+              console.log('event: ', event);
+              // @ts-ignore
+              var series = colChart.get(this.options.id); //get corresponding series
+              console.log(this.options.id);
+              if (series) {
+                if (this.visible) {
+                  // @ts-ignore
+                  series.setVisible(false);
+                } else {
+                  // @ts-ignore
+                  series.setVisible(true);
+                }
+              }
+            },
+          },
+        },
         showInLegend: true,
         dataLabels: {
           enabled: true,
@@ -82,26 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
               return '';
             }
             return `${Math.round(this.point.percentage * 10) / 10}%`;
-          },
-        },
-      },
-      series: {
-        events: {
-          legendItemClick: function (event) {
-            console.log('event: ', event);
-            var XYZ = colChart;
-            // @ts-ignore
-            var series = XYZ.get(this.options.id); //get corresponding series
-            console.log(this.options.id);
-            if (series) {
-              if (this.visible) {
-                // @ts-ignore
-                series.setVisible(false);
-              } else {
-                // @ts-ignore
-                series.setVisible(true);
-              }
-            }
           },
         },
       },
