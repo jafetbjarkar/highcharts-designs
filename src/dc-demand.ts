@@ -10,10 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
    */
 
   const categories = ['Jan, `24', 'Feb, `24', 'Mar, `24', 'Apr, `24'];
-  const data1 = [120, 140, 170, 145];
-  const data2 = [90, 95, 110, 115];
-  const data3 = [200, 220, 240, 260];
-  const data4 = [150, 160, 170, 180];
+  const data1 = [120, 140, 170, 10];
+  const data2 = [90, 95, 110, 10];
+  const data3 = [200, 220, 5, 10];
+  const data4 = [150, 160, 170, 10];
 
   // Aggregated for pie
   const data1Aggregated = data1.reduce((acc, curr) => acc + curr, 0);
@@ -37,10 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
       categories,
     },
     series: [
-      { id: 'store1', name: 'Store 1', data: data1, stacking: 'normal' },
-      { id: 'store2', name: 'Store 2', data: data2, stacking: 'normal' },
-      { id: 'store3', name: 'Store 3', data: data3, stacking: 'normal' },
-      { id: 'store4', name: 'Store 4', data: data4, stacking: 'normal' },
+      { id: 'store1', name: 'Store 1', data: data1, stacking: 'normal', dataLabels: { enabled: true } },
+      { id: 'store2', name: 'Store 2', data: data2, stacking: 'normal', dataLabels: { enabled: true } },
+      { id: 'store3', name: 'Store 3', data: data3, stacking: 'normal', dataLabels: { enabled: true } },
+      { id: 'store4', name: 'Store 4', data: data4, stacking: 'normal', dataLabels: { enabled: true } },
     ],
     plotOptions: {},
   });
