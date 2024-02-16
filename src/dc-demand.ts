@@ -26,106 +26,112 @@ document.addEventListener('DOMContentLoaded', () => {
    */
 
   // @ts-ignore
-  const colChart = Highcharts.chart('dc-demand-column', {
-    ...highchartsCommonOptions,
-    chart: {
-      type: 'column',
-      stacked: true,
-    },
-    legend: { enabled: false },
-    xAxis: {
-      categories,
-    },
-    series: [
-      { id: 'store1', name: 'Store 1', data: data1, stacking: 'normal', dataLabels: { enabled: true } },
-      { id: 'store2', name: 'Store 2', data: data2, stacking: 'normal', dataLabels: { enabled: true } },
-      { id: 'store3', name: 'Store 3', data: data3, stacking: 'normal', dataLabels: { enabled: true } },
-      { id: 'store4', name: 'Store 4', data: data4, stacking: 'normal', dataLabels: { enabled: true } },
-    ],
-    plotOptions: {},
-  });
+  const colChart = Highcharts.chart(
+    'dc-demand-column',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: {
+        type: 'column',
+        stacked: true,
+      },
+      legend: { enabled: false },
+      xAxis: {
+        categories,
+      },
+      series: [
+        { id: 'store1', name: 'Store 1', data: data1, stacking: 'normal', dataLabels: { enabled: true } },
+        { id: 'store2', name: 'Store 2', data: data2, stacking: 'normal', dataLabels: { enabled: true } },
+        { id: 'store3', name: 'Store 3', data: data3, stacking: 'normal', dataLabels: { enabled: true } },
+        { id: 'store4', name: 'Store 4', data: data4, stacking: 'normal', dataLabels: { enabled: true } },
+      ],
+      plotOptions: {},
+    })
+  );
 
   /**
    * Pie chart
    */
 
   // @ts-ignore
-  Highcharts.chart('dc-demand-pie', {
-    ...highchartsCommonOptions,
-    chart: {
-      type: 'pie',
-    },
-    legend: { enabled: true, layout: 'vertical', align: 'right', verticalAlign: 'top', width: 220 },
-    xAxis: {
-      categories,
-    },
-    series: [
-      {
-        name: 'Demand from other locations',
-        data: [
-          { id: 'store1', name: 'Store 1', y: data1Aggregated },
-          { id: 'store2', name: 'Store 2', y: data2Aggregated },
-          { id: 'store3', name: 'Store 3', y: data3Aggregated },
-          { id: 'store4', name: 'Store 4', y: data4Aggregated },
-        ],
+  Highcharts.chart(
+    'dc-demand-pie',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: {
+        type: 'pie',
       },
-    ],
-    plotOptions: {
-      pie: {
-        point: {
-          events: {
-            legendItemClick: function (event) {
-              console.log('event: ', event);
-              // @ts-ignore
-              var series = colChart.get(this.options.id); //get corresponding series
-              console.log(this.options.id);
-              if (series) {
-                if (this.visible) {
-                  // @ts-ignore
-                  series.setVisible(false);
-                } else {
-                  // @ts-ignore
-                  series.setVisible(true);
+      legend: { enabled: true, layout: 'vertical', align: 'right', verticalAlign: 'top', width: 220 },
+      xAxis: {
+        categories,
+      },
+      series: [
+        {
+          name: 'Demand from other locations',
+          data: [
+            { id: 'store1', name: 'Store 1', y: data1Aggregated },
+            { id: 'store2', name: 'Store 2', y: data2Aggregated },
+            { id: 'store3', name: 'Store 3', y: data3Aggregated },
+            { id: 'store4', name: 'Store 4', y: data4Aggregated },
+          ],
+        },
+      ],
+      plotOptions: {
+        pie: {
+          point: {
+            events: {
+              legendItemClick: function (event) {
+                console.log('event: ', event);
+                // @ts-ignore
+                var series = colChart.get(this.options.id); //get corresponding series
+                console.log(this.options.id);
+                if (series) {
+                  if (this.visible) {
+                    // @ts-ignore
+                    series.setVisible(false);
+                  } else {
+                    // @ts-ignore
+                    series.setVisible(true);
+                  }
                 }
+              },
+            },
+          },
+          showInLegend: true,
+          dataLabels: {
+            enabled: true,
+            distance: -30,
+            style: { fontWeight: '600' },
+            formatter: function (this: Highcharts.PointLabelObject): string {
+              if (!this?.point?.percentage) {
+                return '';
               }
+              return `${Math.round(this.point.percentage * 10) / 10}%`;
             },
           },
         },
-        showInLegend: true,
-        dataLabels: {
-          enabled: true,
-          distance: -30,
-          style: { fontWeight: '600' },
-          formatter: function (this: Highcharts.PointLabelObject): string {
-            if (!this?.point?.percentage) {
-              return '';
-            }
-            return `${Math.round(this.point.percentage * 10) / 10}%`;
-          },
-        },
       },
-    },
-  });
+    })
+  );
 
   /**
    * Line chart
    */
 
   // @ts-ignore
-  Highcharts.chart('dc-demand-line', {
-    ...highchartsCommonOptions,
-    chart: {
-      type: 'line',
-    },
-    legend: { enabled: true, layout: 'vertical', align: 'right', verticalAlign: 'top' },
-    xAxis: {
-      categories,
-    },
-    series: [
-      { name: 'Store 1', data: data1 },
-      { name: 'Store 2', data: data2 },
-      { name: 'Store 3', data: data3 },
-      { name: 'Store 4', data: data4 },
-    ],
-  });
+  Highcharts.chart(
+    'dc-demand-line',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: {
+        type: 'line',
+      },
+      legend: { enabled: true, layout: 'vertical', align: 'right', verticalAlign: 'top' },
+      xAxis: {
+        categories,
+      },
+      series: [
+        { name: 'Store 1', data: data1 },
+        { name: 'Store 2', data: data2 },
+        { name: 'Store 3', data: data3 },
+        { name: 'Store 4', data: data4 },
+      ],
+    })
+  );
 });

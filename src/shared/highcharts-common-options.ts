@@ -1,4 +1,4 @@
-import { AgrTheme } from "./agr-theme-model";
+import { AgrTheme } from './agr-theme-model';
 
 /**
  * Highcharts options
@@ -11,21 +11,21 @@ export const highchartsCommonOptions: Highcharts.Options = {
   accessibility: { enabled: false },
   chart: {
     animation: false,
-    type: "column",
+    type: 'column',
     panning: { enabled: true },
-    zooming: { type: "x" },
-    panKey: "shift",
+    zooming: { type: 'x' },
+    panKey: 'shift',
     style: {
       fontFamily: '"Inter", Helvetica, Arial, sans-serif',
     },
   },
-  colors: new AgrTheme("dynamic").getColorsFlat(),
+  colors: new AgrTheme('dynamic').getColorsFlat(),
   credits: { enabled: false },
   exporting: { enabled: false },
   legend: {
     itemMarginBottom: 2,
-    itemStyle: { fontWeight: "500" },
-    itemHiddenStyle: { color: "#ccc", "text-decoration": "none" },
+    itemStyle: { fontWeight: '500' },
+    itemHiddenStyle: { color: '#ccc', 'text-decoration': 'none' },
   },
   plotOptions: {
     series: {
@@ -41,8 +41,8 @@ export const highchartsCommonOptions: Highcharts.Options = {
   xAxis: {
     crosshair: true,
     gridLineWidth: 1,
-    lineColor: "#555",
-    tickColor: "#555",
+    lineColor: '#555',
+    tickColor: '#555',
     tickLength: 6,
   },
   yAxis: {

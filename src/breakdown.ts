@@ -30,88 +30,92 @@ document.addEventListener('DOMContentLoaded', () => {
    */
 
   // @ts-ignore
-  const colChart = Highcharts.chart('breakdown-column', {
-    ...highchartsCommonOptions,
-    chart: {
-      type: 'column',
-      stacked: true,
-    },
-    legend: { enabled: false },
-    xAxis: {
-      categories,
-    },
-    series: [
-      { id: 'wh1', name: 'Warehouse - West US', data: wh1, stacking: 'normal' },
-      { id: 'wh2', name: 'Warehouse - East US', data: wh2, stacking: 'normal' },
-      { id: 'store1', name: 'Store 1', data: store1, stacking: 'normal' },
-      { id: 'store2', name: 'Store 2', data: store2, stacking: 'normal' },
-      { id: 'store3', name: 'Store 3', data: store3, stacking: 'normal' },
-      { id: 'store4', name: 'Store 4', data: store4, stacking: 'normal' },
-    ],
-    plotOptions: {},
-  });
+  const colChart = Highcharts.chart(
+    'breakdown-column',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: {
+        type: 'column',
+        stacked: true,
+      },
+      legend: { enabled: false },
+      xAxis: {
+        categories,
+      },
+      series: [
+        { id: 'wh1', name: 'Warehouse - West US', data: wh1, stacking: 'normal' },
+        { id: 'wh2', name: 'Warehouse - East US', data: wh2, stacking: 'normal' },
+        { id: 'store1', name: 'Store 1', data: store1, stacking: 'normal' },
+        { id: 'store2', name: 'Store 2', data: store2, stacking: 'normal' },
+        { id: 'store3', name: 'Store 3', data: store3, stacking: 'normal' },
+        { id: 'store4', name: 'Store 4', data: store4, stacking: 'normal' },
+      ],
+      plotOptions: {},
+    })
+  );
 
   /**
    * Pie chart
    */
 
   // @ts-ignore
-  Highcharts.chart('breakdown-pie', {
-    ...highchartsCommonOptions,
-    chart: {
-      type: 'pie',
-    },
-    legend: { enabled: true, layout: 'vertical', align: 'right', verticalAlign: 'top', width: 220 },
-    xAxis: {
-      categories,
-    },
-    series: [
-      {
-        name: 'Demand from other locations',
-        data: [
-          { id: 'wh1', name: 'Warehouse - West US', y: wh1Aggregated },
-          { id: 'wh2', name: 'Warehouse - East US', y: wh22Aggregated },
-          { id: 'store1', name: 'Store 1', y: store1Aggregated },
-          { id: 'store2', name: 'Store 2', y: store2Aggregated },
-          { id: 'store3', name: 'Store 3', y: store3Aggregated },
-          { id: 'store4', name: 'Store 4', y: store4Aggregated },
-        ],
+  Highcharts.chart(
+    'breakdown-pie',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: {
+        type: 'pie',
       },
-    ],
-    plotOptions: {
-      pie: {
-        point: {
-          events: {
-            legendItemClick: function (event) {
-              console.log('event: ', event);
-              // @ts-ignore
-              var series = colChart.get(this.options.id); //get corresponding series
-              console.log(this.options.id);
-              if (series) {
-                if (this.visible) {
-                  // @ts-ignore
-                  series.setVisible(false);
-                } else {
-                  // @ts-ignore
-                  series.setVisible(true);
+      legend: { enabled: true, layout: 'vertical', align: 'right', verticalAlign: 'top', width: 220 },
+      xAxis: {
+        categories,
+      },
+      series: [
+        {
+          name: 'Demand from other locations',
+          data: [
+            { id: 'wh1', name: 'Warehouse - West US', y: wh1Aggregated },
+            { id: 'wh2', name: 'Warehouse - East US', y: wh22Aggregated },
+            { id: 'store1', name: 'Store 1', y: store1Aggregated },
+            { id: 'store2', name: 'Store 2', y: store2Aggregated },
+            { id: 'store3', name: 'Store 3', y: store3Aggregated },
+            { id: 'store4', name: 'Store 4', y: store4Aggregated },
+          ],
+        },
+      ],
+      plotOptions: {
+        pie: {
+          point: {
+            events: {
+              legendItemClick: function (event) {
+                console.log('event: ', event);
+                // @ts-ignore
+                var series = colChart.get(this.options.id); //get corresponding series
+                console.log(this.options.id);
+                if (series) {
+                  if (this.visible) {
+                    // @ts-ignore
+                    series.setVisible(false);
+                  } else {
+                    // @ts-ignore
+                    series.setVisible(true);
+                  }
                 }
+              },
+            },
+          },
+          showInLegend: true,
+          dataLabels: {
+            enabled: true,
+            distance: -30,
+            style: { fontWeight: '600' },
+            formatter: function (this: Highcharts.PointLabelObject): string {
+              if (!this?.point?.percentage) {
+                return '';
               }
+              return `${Math.round(this.point.percentage * 10) / 10}%`;
             },
           },
         },
-        showInLegend: true,
-        dataLabels: {
-          enabled: true,
-          distance: -30,
-          style: { fontWeight: '600' },
-          formatter: function (this: Highcharts.PointLabelObject): string {
-            if (!this?.point?.percentage) {
-              return '';
-            }
-            return `${Math.round(this.point.percentage * 10) / 10}%`;
-          },
-        },
       },
-    },
-  });
+    })
+  );
 });
