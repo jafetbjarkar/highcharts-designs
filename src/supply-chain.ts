@@ -12,6 +12,82 @@ import { highchartsCommonOptions } from './shared/highcharts-common-options';
 
 document.addEventListener('DOMContentLoaded', () => {
   /**
+   * Tree Graph - v4
+   */
+
+  // @ts-ignore
+  Highcharts.chart(
+    'containerV4',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: { marginRight: 140, height: 300 },
+      series: [
+        {
+          type: 'treegraph',
+          clip: false,
+          color: '#b7b6b9',
+          // keys: ['parent', 'id', 'level'],
+          data: [
+            {
+              parent: undefined,
+              id: 'Vendor',
+              dataLabels: { color: '#555' },
+              marker: { fillColor: '#888' },
+            },
+            { parent: 'Vendor', id: 'Warehouse - West US' },
+            {
+              parent: 'Vendor',
+              id: 'Warehouse - East US',
+              dataLabels: { color: '#555' },
+              marker: { fillColor: '#888' },
+              link: { color: '#000' },
+            },
+            { parent: 'Warehouse - West US', id: 'Store 1' },
+            { parent: 'Warehouse - West US', id: 'Store 2' },
+            { parent: 'Warehouse - East US', id: 'Store 3' },
+            {
+              parent: 'Warehouse - East US',
+              id: 'Store 4',
+              dataLabels: { color: '#0a0a0a' },
+              marker: { fillColor: '#5A25EB' },
+              link: { color: '#000' },
+            },
+            { parent: 'Warehouse - East US', id: 'Store 5' },
+            { parent: 'Warehouse - East US', id: 'Store 6' },
+            { parent: 'Warehouse - East US', id: 'Store 7' },
+            { parent: 'Warehouse - East US', id: 'Store 8' },
+            { parent: 'Warehouse - East US', id: 'Store 9' },
+            { parent: 'Warehouse - East US', id: 'Store 10' },
+            { parent: 'Warehouse - East US', id: 'Store 11' },
+            { parent: 'Warehouse - East US', id: 'Store 12' },
+          ],
+          marker: {
+            radius: 6,
+            lineWidth: 2,
+            lineColor: 'white',
+          },
+          link: {
+            color: '#ddd',
+          },
+          dataLabels: {
+            align: 'left',
+            pointFormat: '{point.id}',
+            style: {
+              color: '#999',
+              textOutline: '3px #ffffff',
+              whiteSpace: 'nowrap',
+              fontWeight: 600,
+            },
+            x: 16,
+            crop: false,
+            overflow: 'none',
+          },
+          levels: [{ level: 1 }, { level: 2 }, { level: 3 }],
+        },
+      ],
+    })
+  );
+
+  /**
    * Tree Graph - v3
    */
 
@@ -19,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
   Highcharts.chart(
     'containerV3',
     Highcharts.merge(highchartsCommonOptions, {
-      chart: { marginRight: 140 },
+      chart: { marginRight: 140, height: 300 },
       series: [
         {
           type: 'treegraph',
@@ -95,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
   Highcharts.chart(
     'containerV2',
     Highcharts.merge(highchartsCommonOptions, {
-      chart: { marginRight: 140 },
+      chart: { marginRight: 140, height: 300 },
       series: [
         {
           type: 'treegraph',
@@ -284,9 +360,13 @@ document.addEventListener('DOMContentLoaded', () => {
           // linkColor: '#777',
           // linkLineWidth: 2,
           height: 40,
+          link: {
+            type: 'curved',
+          },
         },
       ],
-      tooltip: { outside: true, format: '{point.title}' },
+
+      tooltip: { outside: true, format: '{point.id}' },
       exporting: {
         allowHTML: true,
         sourceWidth: 800,
