@@ -100,6 +100,22 @@ export const colorsDynamic: AgrExtendedColor[] = [
   { label: 'dirtyYellow', hex: '#BFC600' },
   { label: 'blueDarker', hex: '#0653C6' },
   { label: 'greenDarker', hex: '#187618' },
-  { label: 'waterPurple', hex: '#E5B2FF' }
+  { label: 'waterPurple', hex: '#E5B2FF' },
   // dashboard colors
 ];
+
+/**
+ * Gray colors
+ *
+ * white: #ffffff;
+ * gray100: #f9f9f9;
+ * gray200: #efefef;
+ * gray300: #e2e2e3;
+ * gray400: #d1d0d2;
+ * gray500: #b7b6b9;
+ * gray600: #89888c;
+ * gray700: #515053;
+ * gray800: #3d3c3e;
+ * gray900: #28282a;
+ * black: #0a0a0a;
+ */
