@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   Highcharts.chart(
     'containerV5',
     Highcharts.merge(highchartsCommonOptions, {
-      chart: { marginTop: 25, marginRight: 30, marginBottom: 20, marginLeft: 30, height: 300, inverted: true },
+      chart: { marginTop: 25, marginRight: 30, marginBottom: 20, marginLeft: 30, height: 440, width: 1220, inverted: true },
       series: [
         {
           type: 'treegraph',
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
   Highcharts.chart(
     'containerV4',
     Highcharts.merge(highchartsCommonOptions, {
-      chart: { marginRight: 140, height: 300 },
+      chart: { marginRight: 140, height: 440, width: 1220 },
       series: [
         {
           type: 'treegraph',
