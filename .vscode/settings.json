@@ -19,5 +19,5 @@
     "titleBar.inactiveForeground": "#e7e7e799"
   },
   "peacock.color": "#46465A",
-  "cSpell.words": ["sankey", "Treegraph", "Treemap"]
+  "cSpell.words": ["Networkgraph", "sankey", "Treegraph", "Treemap"]
 }

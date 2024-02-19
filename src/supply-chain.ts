@@ -122,14 +122,17 @@ document.addEventListener('DOMContentLoaded', () => {
             {
               parent: 'Warehouse - East US',
               id: 'Store 4',
-              dataLabels: { color: '#0a0a0a', borderWidth: 2, style: { fontWeight: 600 } },
-              link: { color: '#000' },
-              marker: { borderColor: '#000', borderWidth: 2, fillColor: '#111' },
             },
             { parent: 'Warehouse - East US', id: 'Store 5' },
             { parent: 'Warehouse - East US', id: 'Store 6' },
             { parent: 'Warehouse - East US', id: 'Store 7' },
-            { parent: 'Warehouse - East US', id: 'Store 8' },
+            {
+              parent: 'Warehouse - East US',
+              id: 'Store 8',
+              dataLabels: { color: '#0a0a0a', borderWidth: 2, style: { fontWeight: 600 } },
+              link: { color: '#000' },
+              marker: { borderColor: '#000', borderWidth: 2, fillColor: '#111' },
+            },
             { parent: 'Warehouse - East US', id: 'Store 9' },
             { parent: 'Warehouse - East US', id: 'Store 10' },
             { parent: 'Warehouse - East US', id: 'Store 11' },
@@ -238,80 +241,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   );
 
-  /**
-   * Tree Graph - v2 Point by color, no selected
-   */
-
-  // @ts-ignore
-  Highcharts.chart(
-    'containerV2',
-    Highcharts.merge(highchartsCommonOptions, {
-      chart: { marginRight: 140, height: 300 },
-      series: [
-        {
-          type: 'treegraph',
-          clip: false,
-          color: '#b7b6b9',
-          // keys: ['parent', 'id', 'level'],
-          data: [
-            { parent: undefined, id: 'Vendor' },
-            { parent: 'Vendor', id: 'Warehouse - West US' },
-            { parent: 'Vendor', id: 'Warehouse - East US' },
-            { parent: 'Warehouse - West US', id: 'Store 1' },
-            { parent: 'Warehouse - West US', id: 'Store 2' },
-            { parent: 'Warehouse - East US', id: 'Store 3' },
-            { parent: 'Warehouse - East US', id: 'Store 4' },
-            { parent: 'Warehouse - East US', id: 'Store 5' },
-            { parent: 'Warehouse - East US', id: 'Store 6' },
-            { parent: 'Warehouse - East US', id: 'Store 7' },
-            { parent: 'Warehouse - East US', id: 'Store 8' },
-            { parent: 'Warehouse - East US', id: 'Store 9' },
-            { parent: 'Warehouse - East US', id: 'Store 10' },
-            { parent: 'Warehouse - East US', id: 'Store 11' },
-            { parent: 'Warehouse - East US', id: 'Store 12' },
-          ],
-
-          allowPointSelect: false,
-          marker: {
-            // enabled: false,
-            // symbol: 'circle',
-            radius: 6,
-            // fillColor: '',
-            lineWidth: 2,
-            lineColor: 'white',
-            states: {
-              hover: {
-                fillColor: '#1D2231',
-                enabled: false,
-              },
-              select: {
-                enabled: false,
-              },
-            },
-          },
-          link: {
-            color: '#bbb',
-          },
-
-          dataLabels: {
-            align: 'left',
-            pointFormat: '{point.id}',
-            style: {
-              color: '#111',
-              textOutline: '3px #ffffff',
-              whiteSpace: 'nowrap',
-              fontWeight: 600,
-            },
-            x: 16,
-            crop: false,
-            overflow: 'none',
-          },
-          levels: [{ level: 1 }, { level: 2, colorByPoint: true }, { level: 3 }],
-        },
-      ],
-    })
-  );
-
   const data = [
     ['Vendor', 'Warehouse - West US'],
     ['Vendor', 'Warehouse - East US'],
@@ -388,11 +317,88 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 
   /**
-   * Organization chart
+   * Organization chart V2
    */
   // @ts-ignore
-  const colChart = Highcharts.chart(
-    'container',
+  Highcharts.chart(
+    'orgV2',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: { height: 800, width: 1200 },
+      series: [
+        {
+          type: 'organization',
+          data: [
+            { id: 'Vendor', name: 'Vendor', title: 'THe Tittle' },
+            { id: 'wh1', from: 'Vendor', to: 'Warehouse - West US' },
+            { id: 'wh2', from: 'Vendor', to: 'Warehouse - East US' },
+            { from: 'Warehouse - West US', to: 'Store 1' },
+            { from: 'Warehouse - West US', to: 'Store 2' },
+            { from: 'Warehouse - West US', to: 'Store 3' },
+            { from: 'Warehouse - East US', to: 'Store 3' },
+            {
+              from: 'Warehouse - East US',
+              to: 'Store 4',
+              dataLabels: { color: '#0a0a0a', borderWidth: 2, style: { fontWeight: 600 } },
+              link: { color: '#000' },
+              marker: { borderColor: '#000', borderWidth: 2, fillColor: '#111' },
+            },
+            { from: 'Warehouse - East US', to: 'Store 5' },
+            { from: 'Warehouse - East US', to: 'Store 6' },
+            { from: 'Warehouse - East US', to: 'Store 7' },
+            { from: 'Warehouse - East US', to: 'Store 8' },
+            { from: 'Warehouse - East US', to: 'Store 9' },
+            { from: 'Warehouse - East US', to: 'Store 10' },
+            { from: 'Warehouse - East US', to: 'Store 11' },
+            { from: 'Warehouse - East US', to: 'Store 12' },
+          ],
+
+          // keys: ['from', 'to'],
+          levels: [
+            {
+              level: 0,
+              color: '#eee',
+            },
+            { level: 1, colorByPoint: true },
+            { level: 2 },
+          ],
+          nodes: [
+            // { id: 'Vendor', title: 'Vendor 1', name: 'Name here (Replaces Id)' },
+            { id: 'Store 4', title: 'Store 4', selected: true },
+          ],
+
+          colorByPoint: false,
+          color: '#007ad0',
+          clip: false,
+          dataLabels: {
+            align: 'left',
+            // x: 10,
+            // y: 0,
+            // allowOverlap: true,
+            borderWidth: 2,
+            borderColor: 'orange',
+            // color: '#111111',
+            style: { fontWeight: 500, fontSize: '14px', whiteSpace: 'nowrap' },
+            // nodeFormatter: function () {
+            //   return this.point.name;
+            // },
+          },
+          borderWidth: 1,
+          // height: 40,
+          width: 200,
+          link: { type: 'curved' },
+        },
+      ],
+      tooltip: { outside: true, format: '{point.id}' },
+    })
+  );
+
+  /**
+   * Organization chart v1
+   */
+
+  // @ts-ignore
+  Highcharts.chart(
+    'orgV1',
     Highcharts.merge(highchartsCommonOptions, {
       chart: {
         height: 300,
@@ -408,9 +414,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       series: [
         {
+          data: data,
           type: 'organization',
           keys: ['from', 'to'],
-          data: data,
           levels: [
             { level: 0, color: '#E8253F' },
             { level: 1, color: '#29CC80', width: 300 },
