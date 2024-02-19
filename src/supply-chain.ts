@@ -12,7 +12,83 @@ import { highchartsCommonOptions } from './shared/highcharts-common-options';
 
 document.addEventListener('DOMContentLoaded', () => {
   /**
-   * Tree Graph - v4
+   * Tree Graph - v5 Inverted
+   */
+
+  // @ts-ignore
+  Highcharts.chart(
+    'containerV5',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: { marginTop: 25, marginRight: 30, marginBottom: 20, marginLeft: 30, height: 300, inverted: true },
+      series: [
+        {
+          type: 'treegraph',
+          clip: false,
+          color: '#b7b6b9',
+          // keys: ['parent', 'id', 'level'],
+          data: [
+            {
+              parent: undefined,
+              id: 'Vendor',
+              dataLabels: { color: '#555' },
+            },
+            { parent: 'Vendor', id: 'Warehouse - West US' },
+            {
+              parent: 'Vendor',
+              id: 'Warehouse - East US',
+              dataLabels: { color: '#555' },
+              link: { color: '#000' },
+            },
+            { parent: 'Warehouse - West US', id: 'Store 1' },
+            { parent: 'Warehouse - West US', id: 'Store 2' },
+            { parent: 'Warehouse - West US', id: 'Store 3' },
+            { parent: 'Warehouse - East US', id: 'Store 3' },
+            {
+              parent: 'Warehouse - East US',
+              id: 'Store 4',
+              dataLabels: { color: '#0a0a0a', borderWidth: 2, style: { fontWeight: 600 } },
+              link: { color: '#000' },
+              marker: { borderColor: '#000', borderWidth: 2, fillColor: '#111' },
+            },
+            { parent: 'Warehouse - East US', id: 'Store 5' },
+            { parent: 'Warehouse - East US', id: 'Store 6' },
+            { parent: 'Warehouse - East US', id: 'Store 7' },
+            { parent: 'Warehouse - East US', id: 'Store 8' },
+            { parent: 'Warehouse - East US', id: 'Store 9' },
+            { parent: 'Warehouse - East US', id: 'Store 10' },
+            { parent: 'Warehouse - East US', id: 'Store 11' },
+            { parent: 'Warehouse - East US', id: 'Store 12' },
+          ],
+          marker: {
+            radius: 6,
+            lineWidth: 2,
+            lineColor: 'white',
+          },
+          link: {
+            color: '#ddd',
+          },
+          dataLabels: {
+            // align: 'left',
+            y: -18,
+            pointFormat: '{point.id}',
+            style: {
+              color: '#999',
+              textOutline: '3px #ffffff',
+              whiteSpace: 'nowrap',
+              fontWeight: 500,
+            },
+            // x: 16,
+            crop: false,
+            overflow: 'none',
+          },
+          levels: [{ level: 1 }, { level: 2, colorByPoint: true }, { level: 3, dataLabels: { y: 18 } }],
+        },
+      ],
+    })
+  );
+
+  /**
+   * Tree Graph - v4 Point by color
    */
 
   // @ts-ignore
@@ -31,25 +107,24 @@ document.addEventListener('DOMContentLoaded', () => {
               parent: undefined,
               id: 'Vendor',
               dataLabels: { color: '#555' },
-              marker: { fillColor: '#888' },
             },
             { parent: 'Vendor', id: 'Warehouse - West US' },
             {
               parent: 'Vendor',
               id: 'Warehouse - East US',
               dataLabels: { color: '#555' },
-              marker: { fillColor: '#888' },
               link: { color: '#000' },
             },
             { parent: 'Warehouse - West US', id: 'Store 1' },
             { parent: 'Warehouse - West US', id: 'Store 2' },
+            { parent: 'Warehouse - West US', id: 'Store 3' },
             { parent: 'Warehouse - East US', id: 'Store 3' },
             {
               parent: 'Warehouse - East US',
               id: 'Store 4',
-              dataLabels: { color: '#0a0a0a' },
-              marker: { fillColor: '#5A25EB' },
+              dataLabels: { color: '#0a0a0a', borderWidth: 2, style: { fontWeight: 600 } },
               link: { color: '#000' },
+              marker: { borderColor: '#000', borderWidth: 2, fillColor: '#111' },
             },
             { parent: 'Warehouse - East US', id: 'Store 5' },
             { parent: 'Warehouse - East US', id: 'Store 6' },
@@ -75,20 +150,20 @@ document.addEventListener('DOMContentLoaded', () => {
               color: '#999',
               textOutline: '3px #ffffff',
               whiteSpace: 'nowrap',
-              fontWeight: 600,
+              fontWeight: 500,
             },
             x: 16,
             crop: false,
             overflow: 'none',
           },
-          levels: [{ level: 1 }, { level: 2 }, { level: 3 }],
+          levels: [{ level: 1 }, { level: 2, colorByPoint: true }, { level: 3 }],
         },
       ],
     })
   );
 
   /**
-   * Tree Graph - v3
+   * Tree Graph - v3 Gray except selected
    */
 
   // @ts-ignore
@@ -164,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 
   /**
-   * Tree Graph - v2
+   * Tree Graph - v2 Point by color, no selected
    */
 
   // @ts-ignore
