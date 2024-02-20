@@ -12,11 +12,78 @@ import { highchartsCommonOptions } from './shared/highcharts-common-options';
 
 document.addEventListener('DOMContentLoaded', () => {
   /**
+   * Organization chart V3
+   */
+
+  const data2 = [
+    { name: 'V' },
+    { from: 'V', to: 'WW' },
+    { from: 'V', to: 'WE' },
+    { from: 'WW', to: 'S1' },
+    { from: 'WW', to: 'S2' },
+    { from: 'WW', to: 'S3' },
+    { from: 'WW', to: 'S6' },
+    { from: 'WE', to: 'S3' },
+    { from: 'WE', to: 'S4' },
+    { from: 'WE', to: 'S5' },
+    { from: 'WE', to: 'S6' },
+    { from: 'WE', to: 'S7' },
+    { from: 'WE', to: 'S8' },
+  ];
+
+  const nodes2 = [
+    { id: 'V', title: '345', name: 'Vendor' },
+    { id: 'WW', title: '678', name: 'Warehouse - WestUS' },
+    { id: 'WE', title: '123', name: 'Warehouse - East US' },
+    { id: 'S1', title: '456', name: 'Store 1' },
+    { id: 'S2', title: '789', name: 'Store 2' },
+    { id: 'S3', title: '234', name: 'Store 3' },
+    { id: 'S4', title: '567', name: 'Store 4' },
+    { id: 'S5', title: '890', name: 'Store 5' },
+    { id: 'S6', title: '345', name: 'Store 6' },
+    { id: 'S7', title: '678', name: 'Store 7' },
+    { id: 'S8', title: '700', name: 'Store 8', selected: true },
+  ];
+
+  // @ts-ignore
+  Highcharts.chart(
+    'org3',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: { width: 1200, height: 500 }, // We have to calculate the height based on the number of nodes
+      series: [
+        {
+          type: 'organization',
+          data: data2,
+          nodes: nodes2,
+          borderColor: '#e2e2e3',
+          borderWidth: 1,
+          cursor: 'pointer',
+          dataLabels: {
+            format: '{point.name}<br><div style="font-size: 12px; opacity: .7">Stock: {point.title}</div>',
+          },
+          colorByPoint: false,
+          color: '#fafafa',
+          levels: [{ level: 0 }, { level: 1 }, { level: 2 }],
+          link: { type: 'curved' },
+          nodePadding: 4,
+          nodeWidth: 200,
+          height: 44,
+          states: {
+            hover: { color: '#efefef', borderWidth: 1 },
+            select: { color: '#E3DDFA', borderColor: '#A7A4F6' },
+          },
+        },
+      ],
+      tooltip: { enabled: false, outside: true, format: '{point.name}<br>{point.title}' },
+    })
+  );
+
+  /**
    * Organization chart V2
    */
   // @ts-ignore
   Highcharts.chart(
-    'org3',
+    'org2',
     Highcharts.merge(highchartsCommonOptions, {
       chart: { width: 1200 },
       series: [
@@ -56,73 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
       ],
       tooltip: { outside: true, format: '{point.id}' },
-    })
-  );
-
-  /**
-   * Organization chart V2
-   */
-
-  const data2 = [
-    { name: 'V' },
-    { from: 'V', to: 'WW' },
-    { from: 'V', to: 'WE' },
-    { from: 'WW', to: 'S1' },
-    { from: 'WW', to: 'S2' },
-    { from: 'WW', to: 'S3' },
-    { from: 'WW', to: 'S6' },
-    { from: 'WE', to: 'S3' },
-    { from: 'WE', to: 'S4' },
-    { from: 'WE', to: 'S5' },
-    { from: 'WE', to: 'S6' },
-    { from: 'WE', to: 'S7' },
-    { from: 'WE', to: 'S8' },
-  ];
-
-  const nodes2 = [
-    { id: 'V', title: '345', name: 'Vendor' },
-    { id: 'WW', title: '678', name: 'Warehouse - WestUS' },
-    { id: 'WE', title: '123', name: 'Warehouse - East US' },
-    { id: 'S1', title: '456', name: 'Store 1' },
-    { id: 'S2', title: '789', name: 'Store 2' },
-    { id: 'S3', title: '234', name: 'Store 3' },
-    { id: 'S4', title: '567', name: 'Store 4' },
-    { id: 'S5', title: '890', name: 'Store 5' },
-    { id: 'S6', title: '345', name: 'Store 6' },
-    { id: 'S7', title: '678', name: 'Store 7' },
-    { id: 'S8', title: '700', name: 'Store 8', selected: true },
-  ];
-
-  // @ts-ignore
-  Highcharts.chart(
-    'org2',
-    Highcharts.merge(highchartsCommonOptions, {
-      chart: { width: 1200, height: 500 }, // We have to calculate the height based on the number of nodes
-      series: [
-        {
-          type: 'organization',
-          data: data2,
-          nodes: nodes2,
-          borderColor: '#e2e2e3',
-          borderWidth: 1,
-          cursor: 'pointer',
-          dataLabels: {
-            format: '{point.name}<br><div style="font-size: 12px; opacity: .7">Stock: {point.title}</div>',
-          },
-          colorByPoint: false,
-          color: '#fafafa',
-          levels: [{ level: 0 }, { level: 1 }, { level: 2 }],
-          link: { type: 'curved' },
-          nodePadding: 4,
-          nodeWidth: 200,
-          height: 44,
-          states: {
-            hover: { color: '#efefef', borderWidth: 1 },
-            select: { color: '#E3DDFA', borderColor: '#A7A4F6' },
-          },
-        },
-      ],
-      tooltip: { enabled: false, outside: true, format: '{point.name}<br>{point.title}' },
     })
   );
 

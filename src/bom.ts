@@ -39,6 +39,66 @@ document.addEventListener('DOMContentLoaded', () => {
     { parent: 'Crankshaft', id: 'Crankshaft Seal', name: 'OA-000581-P' },
   ];
 
+  // Create nodes2 array from data
+  const nodes2 = data.map((item) => ({
+    id: item.id,
+    title: item.name,
+  }));
+
+  // Adjust the data array to match the format expected by Highcharts
+  const data2 = data.map((item) => ({
+    from: item.parent,
+    to: item.id,
+  }));
+
+  // Calculate the maximum depth of your data
+  let maxDepth = 0;
+  data2.forEach((item) => {
+    const depth = item.from ? item.from.split(' ').length : 0;
+    if (depth > maxDepth) {
+      maxDepth = depth;
+    }
+  });
+
+  // Set the height of the chart based on the maximum depth
+  const chartHeight = maxDepth * 100; // Adjust the multiplier as needed
+
+  // Create the chart
+  Highcharts.chart(
+    'ddd',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: {
+        width: 1200,
+        height: chartHeight, // Set the overall height of the chart here
+      },
+      series: [
+        {
+          type: 'organization',
+          data: data2,
+          nodes: nodes2,
+          borderColor: '#e2e2e3',
+          borderWidth: 1,
+          cursor: 'pointer',
+          dataLabels: {
+            format: '{point.name}<br><div style="font-size: 12px; opacity: .7">Stock: {point.title}</div>',
+          },
+          colorByPoint: false,
+          color: '#fafafa',
+          levels: [{ level: 0 }, { level: 1 }, { level: 2 }],
+          link: { type: 'curved' },
+          nodePadding: 4,
+          nodeWidth: 200,
+          height: 44,
+          states: {
+            hover: { color: '#efefef', borderWidth: 1 },
+            select: { color: '#E3DDFA', borderColor: '#A7A4F6' },
+          },
+        },
+      ],
+      tooltip: { enabled: false, outside: true, format: '{point.name}<br>{point.title}' },
+    })
+  );
+
   // Data additions
   data[0].dataLabels = { color: '#555' };
   data[2].dataLabels = { color: '#555' };
