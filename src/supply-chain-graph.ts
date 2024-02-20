@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ['Warehouse - West US', 'Store 1'],
     ['Warehouse - West US', 'Store 2'],
     ['Warehouse - East US', 'Store 3'],
+    ['Warehouse - West US', 'Store 3'],
     ['Warehouse - East US', 'Store 4'],
     ['Warehouse - East US', 'Store 5'],
     ['Warehouse - East US', 'Store 6'],
