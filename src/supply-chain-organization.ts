@@ -16,58 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   // @ts-ignore
   Highcharts.chart(
-    'org2',
-    Highcharts.merge(
-      {},
-      {
-        chart: { width: 1200 },
-        series: [
-          {
-            type: 'organization',
-            data: [
-              { name: 'Vendor' },
-              { from: 'Vendor', to: 'Warehouse - WestUS' },
-              { from: 'Vendor', to: 'Warehouse - East US' },
-              { from: 'Warehouse - WestUS', to: 'Store 1' },
-              { from: 'Warehouse - WestUS', to: 'Store 2' },
-              { from: 'Warehouse - WestUS', to: 'Store 3' },
-              { from: 'Warehouse - East US', to: 'Store 3' },
-              { from: 'Warehouse - East US', to: 'Store 4' },
-              { from: 'Warehouse - East US', to: 'Store 5' },
-              { from: 'Warehouse - East US', to: 'Store 6' },
-              { from: 'Warehouse - East US', to: 'Store 7' },
-            ],
-            nodes: [
-              { id: 'Vendor', title: 'Vendor 1', name: 'Name here (Replaces Id)' },
-              //   { id: 'Store 4', title: 'Store 4', selected: true },
-            ],
-            borderWidth: 1,
-            colorByPoint: false,
-            // color: 'transparent',
-            dataLabels: {
-              crop: false,
-              overflow: 'allow',
-              padding: 4,
-              inside: false,
-              position: 'left',
-            },
-            levels: [{ level: 0 }, { level: 1, colorByPoint: true }, { level: 2 }],
-            link: { type: 'curved' },
-            nodePadding: 5,
-            nodeWidth: 150,
-          },
-        ],
-        tooltip: { outside: true, format: '{point.id}' },
-      }
-    )
-  );
-
-  /**
-   * Organization chart V2
-   */
-  // @ts-ignore
-  Highcharts.chart(
-    'org2',
+    'org3',
     Highcharts.merge(highchartsCommonOptions, {
       chart: { width: 1200 },
       series: [
@@ -86,19 +35,94 @@ document.addEventListener('DOMContentLoaded', () => {
             { from: 'Warehouse - East US', to: 'Store 6' },
             { from: 'Warehouse - East US', to: 'Store 7' },
           ],
-          nodes: [
-            { id: 'Vendor', title: 'Vendor 1', name: 'Name here (Replaces Id)' },
-            //   { id: 'Store 4', title: 'Store 4', selected: true },
-          ],
+          nodes: [{ id: 'Vendor', title: 'Vendor 1', name: 'Name here (Replaces Id)' }],
           borderWidth: 1,
-          colorByPoint: false,
+          dataLabels: {
+            crop: false,
+            overflow: 'allow',
+            inside: false,
+            allowOverlap: true,
+            style: {
+              textOutline: '3px #ffffff',
+              whiteSpace: 'nowrap',
+              fontWeight: 500,
+            },
+          },
           levels: [{ level: 0 }, { level: 1, colorByPoint: true }, { level: 2 }],
           link: { type: 'curved' },
           nodePadding: 5,
-          nodeWidth: 150,
+          nodeWidth: 10,
+          height: 10,
         },
       ],
       tooltip: { outside: true, format: '{point.id}' },
+    })
+  );
+
+  /**
+   * Organization chart V2
+   */
+
+  const data2 = [
+    { name: 'V' },
+    { from: 'V', to: 'WW' },
+    { from: 'V', to: 'WE' },
+    { from: 'WW', to: 'S1' },
+    { from: 'WW', to: 'S2' },
+    { from: 'WW', to: 'S3' },
+    { from: 'WW', to: 'S6' },
+    { from: 'WE', to: 'S3' },
+    { from: 'WE', to: 'S4' },
+    { from: 'WE', to: 'S5' },
+    { from: 'WE', to: 'S6' },
+    { from: 'WE', to: 'S7' },
+    { from: 'WE', to: 'S8' },
+  ];
+
+  const nodes2 = [
+    { id: 'V', title: '345', name: 'Vendor' },
+    { id: 'WW', title: '678', name: 'Warehouse - WestUS' },
+    { id: 'WE', title: '123', name: 'Warehouse - East US' },
+    { id: 'S1', title: '456', name: 'Store 1' },
+    { id: 'S2', title: '789', name: 'Store 2' },
+    { id: 'S3', title: '234', name: 'Store 3' },
+    { id: 'S4', title: '567', name: 'Store 4' },
+    { id: 'S5', title: '890', name: 'Store 5' },
+    { id: 'S6', title: '345', name: 'Store 6' },
+    { id: 'S7', title: '678', name: 'Store 7' },
+    { id: 'S8', title: '700', name: 'Store 8', selected: true },
+  ];
+
+  // @ts-ignore
+  Highcharts.chart(
+    'org2',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: { width: 1200, height: 500 }, // We have to calculate the height based on the number of nodes
+      series: [
+        {
+          type: 'organization',
+          data: data2,
+          nodes: nodes2,
+          borderColor: '#e2e2e3',
+          borderWidth: 1,
+          cursor: 'pointer',
+          dataLabels: {
+            format: '{point.name}<br><div style="font-size: 12px; opacity: .7">Stock: {point.title}</div>',
+          },
+          colorByPoint: false,
+          color: '#fafafa',
+          levels: [{ level: 0 }, { level: 1 }, { level: 2 }],
+          link: { type: 'curved' },
+          nodePadding: 4,
+          nodeWidth: 200,
+          height: 44,
+          states: {
+            hover: { color: '#efefef', borderWidth: 1 },
+            select: { color: '#E3DDFA', borderColor: '#A7A4F6' },
+          },
+        },
+      ],
+      tooltip: { enabled: false, outside: true, format: '{point.name}<br>{point.title}' },
     })
   );
 
