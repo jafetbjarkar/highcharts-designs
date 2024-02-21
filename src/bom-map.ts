@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'bom2',
     Highcharts.merge(highchartsCommonOptions, {
       chart: { width: 1200, height: 560 }, // We have to calculate the height based on the number of nodes
+      xAxis: { crosshair: false },
       series: [
         {
           type: 'organization',
