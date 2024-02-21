@@ -23,10 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
     { from: 'WW', to: 'S2' },
     { from: 'WW', to: 'S3' },
     { from: 'WW', to: 'S6' },
-    { from: 'WE', to: 'S3' },
+    { from: 'WE', to: 'S3', link: { color: '#fbd200' } },
     { from: 'WE', to: 'S4' },
     { from: 'WE', to: 'S5' },
-    { from: 'WE', to: 'S6' },
+    { from: 'WE', to: 'S6', link: { color: '#fbd200' } },
     { from: 'WE', to: 'S7' },
     { from: 'WE', to: 'S8' },
   ];
@@ -36,7 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'WW', title: '678', name: 'Warehouse - WestUS' },
     { id: 'WE', title: '123', name: 'Warehouse - East US' },
     { id: 'S1', title: '456', name: 'Store 1' },
-    { id: 'S2', title: '789', name: 'Store 2' },
+    {
+      id: 'S2',
+      title: '789 <span title="Undelivered" style="margin-left: 4px; color: #a32af4"><i class="fa fa-arrow-down"></i>20</span>',
+      name: 'Store 2',
+    },
     { id: 'S3', title: '234', name: 'Store 3' },
     { id: 'S4', title: '567', name: 'Store 4' },
     { id: 'S5', title: '890', name: 'Store 5' },
@@ -46,10 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   // @ts-ignore
-  Highcharts.chart(
+  const chart = Highcharts.chart(
     'org3',
     Highcharts.merge(highchartsCommonOptions, {
       chart: { width: 1200, height: 500 }, // We have to calculate the height based on the number of nodes
+      xAxis: { crosshair: false },
       series: [
         {
           type: 'organization',
@@ -64,7 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
           colorByPoint: false,
           color: '#fafafa',
           levels: [{ level: 0 }, { level: 1 }, { level: 2 }],
-          link: { type: 'curved' },
+          link: { type: 'curved', color: '#3d3c3e' },
+          linkLineWidth: 1,
           nodePadding: 4,
           nodeWidth: 200,
           height: 44,
@@ -122,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
           height: 10,
         },
       ],
-      tooltip: { outside: true, format: '{point.id}' },
+      tooltip: { enabled: false, outside: true, format: '{point.id}' },
     })
   );
 
