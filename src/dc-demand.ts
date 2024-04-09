@@ -110,28 +110,4 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     })
   );
-
-  /**
-   * Line chart
-   */
-
-  // @ts-ignore
-  Highcharts.chart(
-    'dc-demand-line',
-    Highcharts.merge(highchartsCommonOptions, {
-      chart: {
-        type: 'line',
-      },
-      legend: { enabled: true, layout: 'vertical', align: 'right', verticalAlign: 'top' },
-      xAxis: {
-        categories,
-      },
-      series: [
-        { name: 'Store 1', data: data1 },
-        { name: 'Store 2', data: data2 },
-        { name: 'Store 3', data: data3 },
-        { name: 'Store 4', data: data4 },
-      ],
-    })
-  );
 });

@@ -14,57 +14,158 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * Organization chart V3
    */
-  const bomData = [
-    { from: 'P', to: 'C1' },
-    { from: 'P', to: 'C2' },
-    { from: 'C1', to: 'SC1' },
-    { from: 'C1', to: 'SC2' },
-    { from: 'C2', to: 'SC3' },
-    { from: 'C2', to: 'SC4' },
-    { from: 'SC1', to: 'T1' },
-    { from: 'SC1', to: 'T2' },
-    { from: 'SC2', to: 'T3' },
-    { from: 'SC2', to: 'T4' },
-    { from: 'SC3', to: 'T5' },
-    { from: 'SC3', to: 'T6' },
-    { from: 'SC4', to: 'T7' },
-    { from: 'SC4', to: 'T8' },
-    { from: 'SC4', to: 'T9' },
-    { from: 'SC4', to: 'T10' },
-    { from: 'P', to: 'C3' },
+  // const bomData3 = [
+  //   { from: 'Sofa', to: 'Frame' },
+  //   { from: 'Sofa', to: 'Cushions' },
+  //   { from: 'Frame', to: 'Wood' },
+  //   { from: 'Frame', to: 'Screws' },
+  //   { from: 'Frame', to: 'Staples' },
+  //   { from: 'Frame', to: 'Glue' },
+  //   { from: 'Cushions', to: 'Foam' },
+  //   { from: 'Cushions', to: 'Fabric' },
+  //   { from: 'Cushions', to: 'Zipper' },
+  //   { from: 'Cushions', to: 'Thread' },
+  //   { from: 'Sofa', to: 'Legs' },
+  //   { from: 'Legs', to: 'Metal' },
+  //   { from: 'Legs', to: 'Screws' },
+  //   { from: 'Legs', to: 'Bolts' },
+  //   { from: 'Legs', to: 'Rubber Pads' },
+  //   { from: 'Legs', to: 'Paint' },
+  // ];
+
+  // const bomNodes3 = [
+  //   { id: 'Sofa', title: 'AB-00020-C', name: 'KLIPPAN Loveseat' },
+  //   { id: 'Frame', title: 'CD-00103-E', name: 'Sofa Frame', selected: true },
+  //   { id: 'Cushions', title: 'FG-00050-H', name: 'Sofa Cushion' },
+  //   { id: 'Wood', title: 'IJ-06789-K', name: 'Pine Wood <span class="badge">4</span>' },
+  //   { id: 'Screws', title: 'LM-03456-N', name: 'Metal Screws <span class="badge">20</span>' },
+  //   { id: 'Staples', title: 'ST-03456-N', name: 'Metal Staples <span class="badge">50</span>' },
+  //   { id: 'Glue', title: 'GL-03456-N', name: 'Wood Glue <span class="badge">1</span>' },
+  //   { id: 'Foam', title: 'OP-07890-Q', name: 'Cushion Foam' },
+  //   { id: 'Fabric', title: 'RS-04567-T', name: 'Cushion Fabric' },
+  //   { id: 'Zipper', title: 'ZP-07890-Q', name: 'Cushion Zipper' },
+  //   { id: 'Thread', title: 'TH-03456-N', name: 'Sewing Thread' },
+  //   { id: 'Legs', title: 'UV-01234-W', name: 'Sofa Leg' },
+  //   { id: 'Metal', title: 'XY-05678-Z', name: 'Metal for Legs' },
+  //   { id: 'Bolts', title: 'BT-03456-N', name: 'Metal Bolts' },
+  //   { id: 'Rubber Pads', title: 'RP-03456-N', name: 'Rubber Pads' },
+  //   { id: 'Paint', title: 'PT-03456-N', name: 'Metal Paint' },
+  // ];
+
+  const bomData3 = [
+    { from: 'Sofa', to: 'Frame' },
+    { from: 'Frame', to: 'Wood' },
+    { from: 'Frame', to: 'Screws' },
+    { from: 'Frame', to: 'Staples' },
+    { from: 'Frame', to: 'Glue' },
   ];
 
-  const bomNodes = [
-    { id: 'P', title: 'AB-00020-C', name: 'Plumbus' },
-    { id: 'C1', title: 'CD-00103-E', name: 'Fleeb <span class="badge">2</span>' },
-    { id: 'C2', title: 'FG-00050-H', name: 'Dinglebop <span class="badge">7</span>' },
-    { id: 'SC1', title: 'IJ-06789-K', name: 'Schleem <span class="badge">2</span>' },
-    { id: 'SC2', title: 'LM-03456-N', name: 'Grumbo <span class="badge">4</span>', selected: true },
-    { id: 'SC3', title: 'OP-07890-Q', name: 'Blamf <span class="badge">10</span>' },
-    { id: 'SC4', title: 'RS-04567-T', name: 'Shleem <span class="badge">1</span>' },
-    { id: 'T1', title: 'UV-01234-W', name: 'Repurposed Schleem <span class="badge">1</span>' },
-    { id: 'T2', title: 'XY-05678-Z', name: 'Repurposed Fleeb <span class="badge">2</span>' },
-    { id: 'T3', title: 'AB-02345-C', name: 'Repurposed Dinglebop <span class="badge">5</span>' },
-    { id: 'T4', title: 'DE-06789-F', name: 'Repurposed Grumbo <span class="badge">1</span>' },
-    { id: 'T5', title: 'GH-03456-I', name: 'Repurposed Blamf <span class="badge">2</span>' },
-    { id: 'T6', title: 'JK-07890-L', name: 'Repurposed Shleem <span class="badge">2</span>' },
-    { id: 'T7', title: 'MN-04567-P', name: 'Repurposed Schleem <span class="badge">1</span>' },
-    { id: 'T8', title: 'QR-01234-S', name: 'Repurposed Fleeb <span class="badge">1</span>' },
-    { id: 'T9', title: 'TU-05678-V', name: 'Repurposed Dinglebop <span class="badge">1</span>' },
-    { id: 'T10', title: 'WX-02345-Y', name: 'Repurposed Grumbo <span class="badge">99</span>' },
-    { id: 'C3', title: 'ZA-08910-B', name: 'Greebybox <span class="badge">1</span>' },
+  const bomNodes3 = [
+    { id: 'Sofa', title: 'AB-00020-C', name: 'KLIPPAN Loveseat' },
+    { id: 'Frame', title: 'CD-00103-E', name: 'Sofa Frame', selected: true },
+    { id: 'Wood', title: 'IJ-06789-K', name: 'Pine Wood <span class="badge">4</span>' },
+    { id: 'Screws', title: 'LM-03456-N', name: 'Metal Screws <span class="badge">20</span>' },
+    { id: 'Staples', title: 'ST-03456-N', name: 'Metal Staples <span class="badge">50</span>' },
+    { id: 'Glue', title: 'GL-03456-N', name: 'Wood Glue <span class="badge">1</span>' },
   ];
+
   // @ts-ignore
   Highcharts.chart(
-    'bom2',
+    'bom3',
     Highcharts.merge(highchartsCommonOptions, {
-      chart: { width: 1200, height: 560 }, // We have to calculate the height based on the number of nodes
+      chart: { width: 1200, height: 440 }, // We have to calculate the height based on the number of nodes
       xAxis: { crosshair: false },
       series: [
         {
           type: 'organization',
-          data: bomData,
-          nodes: bomNodes,
+          data: bomData3,
+          nodes: bomNodes3,
+          borderColor: '#e2e2e3',
+          borderWidth: 1,
+          cursor: 'pointer',
+          dataLabels: {
+            format: '{point.name}<br><div style="font-size: 12px; opacity: .7">{point.title}</div>',
+          },
+          colorByPoint: false,
+          color: '#fafafa',
+          levels: [{ level: 0 }, { level: 1 }, { level: 2 }],
+          link: { type: 'curved' },
+          nodePadding: 4,
+          nodeWidth: 200,
+          height: 44,
+          states: {
+            hover: { color: '#efefef', borderWidth: 1 },
+            select: { color: '#E3DDFA', borderColor: '#A7A4F6' },
+          },
+        },
+      ],
+      tooltip: { enabled: false, outside: true, format: '{point.name}<br>{point.title}' },
+    })
+  );
+
+  /**
+   * Organization chart V3
+   */
+
+  // @ts-ignore
+  Highcharts.chart(
+    'bom2',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: { width: 1200, height: 620 }, // We have to calculate the height based on the number of nodes
+      xAxis: { crosshair: false },
+      series: [
+        {
+          type: 'organization',
+          // Full
+          data: [
+            { from: 'Sofa', to: 'Frame' },
+            { from: 'Sofa', to: 'Cushions' },
+            { from: 'Frame', to: 'Wood' },
+            { from: 'Frame', to: 'Screws' },
+            { from: 'Frame', to: 'Staples' },
+            { from: 'Frame', to: 'Glue' },
+            { from: 'Cushions', to: 'Foam' },
+            { from: 'Cushions', to: 'Fabric' },
+            { from: 'Cushions', to: 'Zipper' },
+            { from: 'Cushions', to: 'Thread' },
+            { from: 'Sofa', to: 'Legs' },
+            { from: 'Legs', to: 'Metal' },
+            { from: 'Legs', to: 'Screws' },
+            { from: 'Legs', to: 'Bolts' },
+            { from: 'Legs', to: 'Rubber Pads' },
+            { from: 'Legs', to: 'Paint' },
+          ],
+          nodes: [
+            { id: 'Sofa', title: 'AB-00020-C', name: 'KLIPPAN Loveseat' },
+            { id: 'Frame', title: 'CD-00103-E', name: 'Sofa Frame' },
+            { id: 'Cushions', title: 'FG-00050-H', name: 'Sofa Cushion' },
+            { id: 'Wood', title: 'IJ-06789-K', name: 'Pine Wood' },
+            { id: 'Screws', title: 'LM-03456-N', name: 'Metal Screws', selected: true },
+            { id: 'Staples', title: 'ST-03456-N', name: 'Metal Staples' },
+            { id: 'Glue', title: 'GL-03456-N', name: 'Wood Glue' },
+            { id: 'Foam', title: 'OP-07890-Q', name: 'Cushion Foam' },
+            { id: 'Fabric', title: 'RS-04567-T', name: 'Cushion Fabric' },
+            { id: 'Zipper', title: 'ZP-07890-Q', name: 'Cushion Zipper' },
+            { id: 'Thread', title: 'TH-03456-N', name: 'Sewing Thread' },
+            { id: 'Legs', title: 'UV-01234-W', name: 'Sofa Leg' },
+            { id: 'Metal', title: 'XY-05678-Z', name: 'Metal for Legs' },
+            { id: 'Bolts', title: 'BT-03456-N', name: 'Metal Bolts' },
+            { id: 'Rubber Pads', title: 'RP-03456-N', name: 'Rubber Pads' },
+            { id: 'Paint', title: 'PT-03456-N', name: 'Metal Paint' },
+          ],
+          // Line
+          // data: [
+          //   { from: 'Sofa', to: 'Frame' },
+          //   { from: 'Frame', to: 'Screws' },
+          //   { from: 'Sofa', to: 'Legs' },
+          //   { from: 'Legs', to: 'Screws' },
+          // ],
+          // nodes: [
+          //   { id: 'Sofa', title: 'AB-00020-C', name: 'KLIPPAN Loveseat' },
+          //   { id: 'Frame', title: 'CD-00103-E', name: 'Sofa Frame' },
+          //   { id: 'Screws', title: 'LM-03456-N', name: 'Metal Screws', selected: true },
+          //   { id: 'Legs', title: 'UV-01234-W', name: 'Sofa Legs' },
+          // ],
           borderColor: '#e2e2e3',
           borderWidth: 1,
           cursor: 'pointer',
