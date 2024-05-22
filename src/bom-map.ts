@@ -11,46 +11,177 @@ Treegraph(Highcharts);
 import { highchartsCommonOptions } from './shared/highcharts-common-options';
 
 document.addEventListener('DOMContentLoaded', () => {
-  /**
-   * Organization chart V3
-   */
-  // const bomData3 = [
-  //   { from: 'Sofa', to: 'Frame' },
-  //   { from: 'Sofa', to: 'Cushions' },
-  //   { from: 'Frame', to: 'Wood' },
-  //   { from: 'Frame', to: 'Screws' },
-  //   { from: 'Frame', to: 'Staples' },
-  //   { from: 'Frame', to: 'Glue' },
-  //   { from: 'Cushions', to: 'Foam' },
-  //   { from: 'Cushions', to: 'Fabric' },
-  //   { from: 'Cushions', to: 'Zipper' },
-  //   { from: 'Cushions', to: 'Thread' },
-  //   { from: 'Sofa', to: 'Legs' },
-  //   { from: 'Legs', to: 'Metal' },
-  //   { from: 'Legs', to: 'Screws' },
-  //   { from: 'Legs', to: 'Bolts' },
-  //   { from: 'Legs', to: 'Rubber Pads' },
-  //   { from: 'Legs', to: 'Paint' },
-  // ];
+  const organisationNodes = [
+    { id: 'Sofa', title: 'AB-00020-C', name: 'KLIPPAN Loveseat' },
+    { id: 'Frame', title: 'CD-00103-E', name: 'Sofa Frame', selected: true },
+    { id: 'Cushions', title: 'FG-00050-H', name: 'Sofa Cushion' },
+    { id: 'Wood', title: 'IJ-06789-K', name: 'Pine Wood' },
+    { id: 'Screws', title: 'LM-03456-N', name: 'Metal Screws' },
+    { id: 'Staples', title: 'ST-03456-N', name: 'Metal Staples' },
+    { id: 'Glue', title: 'GL-03456-N', name: 'Wood Glue' },
+    { id: 'Foam', title: 'OP-07890-Q', name: 'Cushion Foam' },
+    { id: 'Fabric', title: 'RS-04567-T', name: 'Cushion Fabric' },
+    { id: 'Zipper', title: 'ZP-07890-Q', name: 'Cushion Zipper' },
+    { id: 'Thread', title: 'TH-03456-N', name: 'Sewing Thread' },
+    { id: 'Legs', title: 'UV-01234-W', name: 'Sofa Leg' },
+    { id: 'Metal', title: 'XY-05678-Z', name: 'Metal for Legs' },
+    { id: 'Bolts', title: 'BT-03456-N', name: 'Metal Bolts' },
+    { id: 'Rubber Pads', title: 'RP-03456-N', name: 'Rubber Pads' },
+    { id: 'Paint', title: 'PT-03456-N', name: 'Metal Paint' },
+  ];
 
-  // const bomNodes3 = [
-  //   { id: 'Sofa', title: 'AB-00020-C', name: 'KLIPPAN Loveseat' },
-  //   { id: 'Frame', title: 'CD-00103-E', name: 'Sofa Frame', selected: true },
-  //   { id: 'Cushions', title: 'FG-00050-H', name: 'Sofa Cushion' },
-  //   { id: 'Wood', title: 'IJ-06789-K', name: 'Pine Wood <span class="badge">4</span>' },
-  //   { id: 'Screws', title: 'LM-03456-N', name: 'Metal Screws <span class="badge">20</span>' },
-  //   { id: 'Staples', title: 'ST-03456-N', name: 'Metal Staples <span class="badge">50</span>' },
-  //   { id: 'Glue', title: 'GL-03456-N', name: 'Wood Glue <span class="badge">1</span>' },
-  //   { id: 'Foam', title: 'OP-07890-Q', name: 'Cushion Foam' },
-  //   { id: 'Fabric', title: 'RS-04567-T', name: 'Cushion Fabric' },
-  //   { id: 'Zipper', title: 'ZP-07890-Q', name: 'Cushion Zipper' },
-  //   { id: 'Thread', title: 'TH-03456-N', name: 'Sewing Thread' },
-  //   { id: 'Legs', title: 'UV-01234-W', name: 'Sofa Leg' },
-  //   { id: 'Metal', title: 'XY-05678-Z', name: 'Metal for Legs' },
-  //   { id: 'Bolts', title: 'BT-03456-N', name: 'Metal Bolts' },
-  //   { id: 'Rubber Pads', title: 'RP-03456-N', name: 'Rubber Pads' },
-  //   { id: 'Paint', title: 'PT-03456-N', name: 'Metal Paint' },
-  // ];
+  /**
+   * Organization - Reversed
+   */
+
+  // line
+
+  // @ts-ignore
+  Highcharts.chart(
+    'bom6',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: { width: 1200, height: 440 }, // We have to calculate the height based on the number of nodes
+      xAxis: { crosshair: false },
+      series: [
+        {
+          type: 'organization',
+          data: [
+            { from: 'Screws', to: 'Frame' },
+            { from: 'Screws', to: 'Legs' },
+
+            { from: 'Frame', to: 'Sofa' },
+            { from: 'Legs', to: 'Sofa' },
+          ],
+          nodes: organisationNodes,
+          borderColor: '#e2e2e3',
+          borderWidth: 1,
+          cursor: 'pointer',
+          dataLabels: {
+            format: '{point.name}<br><div style="font-size: 12px; opacity: .7">{point.title}</div>',
+          },
+          colorByPoint: false,
+          color: '#fafafa',
+          levels: [{ level: 0 }, { level: 1 }, { level: 2 }],
+          link: { type: 'curved' },
+          nodePadding: 4,
+          nodeWidth: 200,
+          height: 44,
+          states: {
+            hover: { color: '#efefef', borderWidth: 1 },
+            select: { color: '#E3DDFA', borderColor: '#A7A4F6' },
+          },
+        },
+      ],
+      tooltip: { enabled: false, outside: true, format: '{point.name}<br>{point.title}' },
+    })
+  );
+
+  // line 2
+
+  // @ts-ignore
+  Highcharts.chart(
+    'bom5',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: { width: 1200, height: 440 }, // We have to calculate the height based on the number of nodes
+      xAxis: { crosshair: false },
+      series: [
+        {
+          type: 'organization',
+          data: [
+            { from: 'Frame', to: 'Sofa' },
+            { from: 'Wood', to: 'Frame' },
+            { from: 'Screws', to: 'Frame' },
+            { from: 'Staples', to: 'Frame' },
+            { from: 'Glue', to: 'Frame' },
+          ],
+          nodes: [
+            { id: 'Sofa', title: 'AB-00020-C', name: 'KLIPPAN Loveseat' },
+            { id: 'Frame', title: 'CD-00103-E', name: 'Sofa Frame', selected: true },
+            { id: 'Wood', title: 'IJ-06789-K', name: 'Pine Wood <span class="badge">4</span>' },
+            { id: 'Screws', title: 'LM-03456-N', name: 'Metal Screws <span class="badge">20</span>' },
+            { id: 'Staples', title: 'ST-03456-N', name: 'Metal Staples <span class="badge">50</span>' },
+            { id: 'Glue', title: 'GL-03456-N', name: 'Wood Glue <span class="badge">1</span>' },
+          ],
+          borderColor: '#e2e2e3',
+          borderWidth: 1,
+          cursor: 'pointer',
+          dataLabels: {
+            format: '{point.name}<br><div style="font-size: 12px; opacity: .7">{point.title}</div>',
+          },
+          colorByPoint: false,
+          color: '#fafafa',
+          levels: [{ level: 0 }, { level: 1 }, { level: 2 }],
+          link: { type: 'curved' },
+          nodePadding: 4,
+          nodeWidth: 200,
+          height: 44,
+          states: {
+            hover: { color: '#efefef', borderWidth: 1 },
+            select: { color: '#E3DDFA', borderColor: '#A7A4F6' },
+          },
+        },
+      ],
+      tooltip: { enabled: false, outside: true, format: '{point.name}<br>{point.title}' },
+    })
+  );
+
+  // full
+
+  // @ts-ignore
+  Highcharts.chart(
+    'bom4',
+    Highcharts.merge(highchartsCommonOptions, {
+      chart: { width: 1200, height: 620 }, // We have to calculate the height based on the number of nodes
+      xAxis: { crosshair: false },
+      series: [
+        {
+          type: 'organization',
+          // Full
+          data: [
+            { from: 'Frame', to: 'Sofa' },
+            { from: 'Cushions', to: 'Sofa' },
+            { from: 'Wood', to: 'Frame' },
+            { from: 'Screws', to: 'Frame' },
+            { from: 'Staples', to: 'Frame' },
+            { from: 'Glue', to: 'Frame' },
+            { from: 'Foam', to: 'Cushions' },
+            { from: 'Fabric', to: 'Cushions' },
+            { from: 'Zipper', to: 'Cushions' },
+            { from: 'Thread', to: 'Cushions' },
+            { from: 'Legs', to: 'Sofa' },
+            { from: 'Metal', to: 'Legs' },
+            { from: 'Screws', to: 'Legs' },
+            { from: 'Bolts', to: 'Legs' },
+            { from: 'Rubber Pads', to: 'Legs' },
+            { from: 'Paint', to: 'Legs' },
+          ],
+          nodes: organisationNodes,
+          borderColor: '#e2e2e3',
+          borderWidth: 1,
+          cursor: 'pointer',
+          dataLabels: {
+            format: '{point.name}<br><div style="font-size: 12px; opacity: .7">{point.title}</div>',
+          },
+          colorByPoint: false,
+          color: '#fafafa',
+          levels: [{ level: 0 }, { level: 1 }, { level: 2 }],
+          link: { type: 'curved' },
+          nodePadding: 4,
+          nodeWidth: 200,
+          height: 44,
+          states: {
+            hover: { color: '#efefef', borderWidth: 1 },
+            select: { color: '#E3DDFA', borderColor: '#A7A4F6' },
+          },
+        },
+      ],
+      tooltip: { enabled: false, outside: true, format: '{point.name}<br>{point.title}' },
+    })
+  );
+
+  /**
+   * Organization
+   */
 
   const bomData3 = [
     { from: 'Sofa', to: 'Frame' },
