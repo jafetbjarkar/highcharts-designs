@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
         categories,
       },
       series: [
-        { id: 'Sofa', name: 'Sofa Frame', data: data1, stacking: 'normal', dataLabels: { enabled: true } },
-        { id: 'Cushions', name: 'Sofa Leg', data: data3, stacking: 'normal', dataLabels: { enabled: true } },
+        { id: 'Sofa', name: 'Sofa Frame', data: data1, stacking: 'normal', dataLabels: { enabled: false } },
+        { id: 'Cushions', name: 'Sofa Leg', data: data3, stacking: 'normal', dataLabels: { enabled: false } },
       ],
       plotOptions: {},
     })
